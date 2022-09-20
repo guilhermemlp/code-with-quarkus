@@ -3,6 +3,7 @@ package org.acme.controller;
 import org.acme.entity.Customer;
 import org.acme.service.CustomerService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
@@ -18,6 +19,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @GET
+    @RolesAllowed("manager")
     public List<Customer> retrieveCustomers() {
         List<Customer> customers = new ArrayList<>();
         try {
@@ -30,6 +32,7 @@ public class CustomerController {
 
     @POST
     @Transactional
+    @RolesAllowed("manager")
     public void addCustomer(Customer customer) {
         customerService.addCustomer(customer);
     }
